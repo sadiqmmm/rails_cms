@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024180155) do
+ActiveRecord::Schema.define(version: 20141029043438) do
 
   create_table "pages", force: true do |t|
     t.string   "name"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20141024180155) do
   end
 
   add_index "pages", ["subject_id"], name: "index_pages_on_subject_id"
+
+  create_table "section_edits", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "section_id"
+    t.string   "summary"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "section_edits", ["section_id"], name: "index_section_edits_on_section_id"
+  add_index "section_edits", ["user_id"], name: "index_section_edits_on_user_id"
 
   create_table "sections", force: true do |t|
     t.string   "name"
@@ -45,6 +56,16 @@ ActiveRecord::Schema.define(version: 20141024180155) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_pages", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_pages", ["page_id"], name: "index_user_pages_on_page_id"
+  add_index "user_pages", ["user_id"], name: "index_user_pages_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name", limit: 25
